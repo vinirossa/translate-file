@@ -16,7 +16,7 @@
 
 <span align="center">
 
-A command line wizard to translate files using Google Translate API.
+A command line tool to translate files using Google Translate API.
 
 </span>
 
