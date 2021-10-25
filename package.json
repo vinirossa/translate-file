@@ -1,6 +1,6 @@
 {
     "name": "translate-file",
-    "version": "0.0.0",
+    "version": "1.0.0-alpha.1",
     "description": "A command line tool to translate files using Google Translate API",
     "keywords": [
         "translate",
@@ -16,7 +16,7 @@
     "license": "MIT",
     "author": "Vinícius Pereira",
     "main": "src/index",
-	  "bin": "bin/index",
+    "bin": "bin/index",
     "repository": {
         "type": "git",
         "url": "https://github.com/vinirossa/translate-file"
