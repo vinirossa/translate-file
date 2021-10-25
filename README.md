@@ -56,7 +56,7 @@ translate-file -i ../README.md -t it -o README_it.md -ow
 Translate RELEASE_NOTES.md to Portuguese as RELEASE_NOTES.pt.md to C:\Dev\my-package.
 
 ```
-translate-file -i RELEASENOTES.md -t pt -d C:\Dev\my-package -a
+translate-file -i RELEASE_NOTES.md -t pt -d C:\Dev\my-package -a
 ```
 
 Translate CONTRIBUTING.txt from Spanish to Dutch as CONTRIBUTING_nl.txt.
