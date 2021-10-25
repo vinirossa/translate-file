@@ -1,0 +1,74 @@
+{
+    "name": "translate-file",
+    "version": "0.0.0",
+    "description": "A command line wizard to translate files using Google Translate API",
+    "keywords": [
+        "translate",
+        "translator",
+        "language",
+        "cli",
+        "google"
+    ],
+    "homepage": "https://github.com/vinirossa/translate-file",
+    "bugs": {
+        "url": "https://github.com/vinirossa/translate-file/issues"
+    },
+    "license": "MIT",
+    "author": "Vinícius Pereira",
+    "main": "src/index",
+	  "bin": "bin/index",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/vinirossa/translate-file"
+    },
+    "scripts": {
+        "prepare": "husky install",
+        "start": "bin/index",
+        "lint": "eslint src --max-warnings=0",
+        "lint:fix": "yarn lint --fix",
+        "test": "jest",
+        "test:watch": "jest --watch",
+        "test:ci": "jest --runInBand",
+        "commit": "git cz",
+        "add:contrib": "all-contributors add",
+        "check:contrib": "all-contributors check",
+        "generate:contrib": "all-contributors generate"
+    },
+    "dependencies": {},
+    "devDependencies": {
+        "@commitlint/cli": "^13.1.0",
+        "@commitlint/config-conventional": "^13.1.0",
+        "@semantic-release/changelog": "^6.0.0",
+        "@semantic-release/exec": "^6.0.1",
+        "@semantic-release/git": "^10.0.0",
+        "@types/jest": "^27.0.1",
+        "@types/node": "^16.11.4",
+        "@typescript-eslint/eslint-plugin": "^4.30.0",
+        "@typescript-eslint/parser": "^4.30.0",
+        "all-contributors-cli": "^6.20.0",
+        "cz-conventional-changelog": "^3.3.0",
+        "eslint": "^7.32.0",
+        "eslint-config-prettier": "^8.3.0",
+        "eslint-plugin-prettier": "^4.0.0",
+        "husky": "^7.0.4",
+        "jest": "^27.3.1",
+        "lint-staged": "^11.2.4",
+        "prettier": "^2.3.2",
+        "semantic-release": "^18.0.0",
+        "ts-jest": "^27.0.7",
+        "tsconfig-paths": "^3.11.0",
+        "typescript": "^4.4.2"
+    },
+    "private": false,
+    "config": {
+        "commitizen": {
+            "path": "./node_modules/cz-conventional-changelog"
+        }
+    },
+    "lint-staged": {
+        "src/**/*": [
+            "yarn lint:fix",
+            "yarn test"
+        ]
+    }
+}

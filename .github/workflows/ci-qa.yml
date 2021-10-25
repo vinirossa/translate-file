@@ -1,0 +1,116 @@
+name: Node.js CI (QA)
+
+on:
+  push:
+    branches: [qa, 'qa/**', 'qa-**']
+
+env:
+  NODE_VERSION: "14.x"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+
+    - name: Set up Node ${{ env.NODE_VERSION }}
+      uses: actions/setup-node@v2
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+
+    - name: Cache yarn
+      uses: c-hive/gha-yarn-cache@v2
+
+    - name: Install dependencies
+      run: yarn install --frozen-lockfile
+
+    - name: Run commitlint
+      if: "!contains(github.event.commits[0].message, '[skip ci]')"
+      run: yarn commitlint --from=HEAD~1
+
+    - name: Run lint
+      run: yarn lint
+
+    - name: Run tests
+      run: yarn test:ci
+
+  simulate-release:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+
+    - name: Get current branch name
+      id: branch-name
+      uses: tj-actions/branch-names@v5
+
+    - name: Cancel job if not on branches qa-release or qa-prerelease
+      if: ${{ steps.branch-name.outputs.current_branch != 'qa-release' &&
+              steps.branch-name.outputs.current_branch != 'qa-prerelease' }}
+      uses: andymckay/cancel-action@0.2
+
+    - name: Set up Node ${{ env.NODE_VERSION }}
+      uses: actions/setup-node@v2
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+
+    - name: Cache yarn
+      uses: c-hive/gha-yarn-cache@v2
+
+    - name: Install dependencies
+      run: yarn install --frozen-lockfile
+
+    - name: Overwrite .releaserc.json file
+      shell: bash
+      run: |
+          echo '{
+            "branches": [
+              "+([0-9])?(.{+([0-9]),x}).x",
+              "main",
+              "next",
+              "next-major",
+              "qa-release",
+              {"name": "alpha", "prerelease": true},
+              {"name": "beta", "prerelease": true},
+              {"name": "rc", "prerelease": true},
+              {"name": "qa-prerelease", "prerelease": true}
+            ],
+            "plugins": [
+              "@semantic-release/commit-analyzer",
+              "@semantic-release/release-notes-generator",
+              "@semantic-release/changelog",
+              ["@semantic-release/exec", {
+              "verifyReleaseCmd": "echo ${nextRelease.version}"
+              }]
+            ]
+          }' > .releaserc.json
+
+    - name: Add and commit .releaserc.json file
+      uses: EndBug/add-and-commit@v7
+      with:
+        branch: ${{ steps.branch-name.outputs.current_branch }}
+        author_email: "actions@github.com"
+        author_name: "GitHub Actions"
+        message: "chore: overwrite .releaserc.json file [skip ci]"
+        push: false
+
+    - name: Push changes to the branch ${{ steps.branch-name.outputs.current_branch }}
+      uses: CasperWA/push-protected@v2
+      with:
+        token: ${{ secrets.GH_TOKEN }}
+        branch: ${{ steps.branch-name.outputs.current_branch }}
+        force: true
+        unprotect_reviews: true
+
+    - name: Simulate the release of a new version
+      env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+      run: npx semantic-release --dry-run
