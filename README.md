@@ -16,7 +16,7 @@
 
 <span align="center">
 
-A command line wizard to translate files using Google Translate API.
+A command line tool to translate files using Google Translate API.
 
 </span>
 
@@ -31,7 +31,9 @@ A command line wizard to translate files using Google Translate API.
 
 ## Installation
 
-```npm install -D translate-file```
+```
+npm install -D translate-file
+```
 
 ## Usage
 
@@ -41,27 +43,39 @@ How to use.
 
 Translate CHANGELOG.md to Spanish as CHANGELOG.es.md.
 
-```translate-file -i CHANGELOG.md -t es```
+```
+translate-file -i CHANGELOG.md -t es
+```
 
 Translate README.md to Italian as README_it.md and overwrite file if existent.
 
-```translate-file -i ../README.md -t it -o README_it.md -ow```
+```
+translate-file -i ../README.md -t it -o README_it.md -ow
+```
 
 Translate RELEASE_NOTES.md to Portuguese as RELEASE_NOTES.pt.md to C:\Dev\my-package.
 
-```translate-file -i RELEASENOTES.md -t pt -d C:\Dev\my-package -a```
+```
+translate-file -i RELEASENOTES.md -t pt -d C:\Dev\my-package -a
+```
 
 Translate CONTRIBUTING.txt from Spanish to Dutch as CONTRIBUTING_nl.txt.
 
-```translate-file -i CONTRIBUTING.txt -s es -t nl -o CONTRIBUTING_nl.txt```
+```
+translate-file -i CONTRIBUTING.txt -s es -t nl -o CONTRIBUTING_nl.txt
+```
 
 Translate LICENSE to German as LICENSE.de overwriting existent file and auto detecting language.
 
-```translate-file -i LICENSE -t de -ow -a```
+```
+translate-file -i LICENSE -t de -ow -a
+```
 
 Translate 'French Class Notes.md' to French.
 
-```translate-file -i "../../French Class Notes.txt" -t fr -ow```
+```
+translate-file -i "../../French Class Notes.txt" -t fr -ow
+```
 
 ## Contributing
 

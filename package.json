@@ -1,7 +1,7 @@
 {
     "name": "translate-file",
     "version": "0.0.0",
-    "description": "A command line wizard to translate files using Google Translate API",
+    "description": "A command line tool to translate files using Google Translate API",
     "keywords": [
         "translate",
         "translator",
