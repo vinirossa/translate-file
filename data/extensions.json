@@ -1,0 +1,12 @@
+[
+  {
+      "extension": ".txt",
+      "name": "Text File",
+      "languages": ["all"]
+  },
+  {
+      "extension": ".md",
+      "name": "Markdown",
+      "languages": ["en", "pt"]
+  }
+]
