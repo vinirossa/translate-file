@@ -34,7 +34,11 @@
         "check:contrib": "all-contributors check",
         "generate:contrib": "all-contributors generate"
     },
-    "dependencies": {},
+    "dependencies": {
+        "axios": "^0.24.0",
+        "commander": "^8.3.0",
+        "prompts": "^2.4.2"
+    },
     "devDependencies": {
         "@commitlint/cli": "^13.1.0",
         "@commitlint/config-conventional": "^13.1.0",
