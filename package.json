@@ -73,6 +73,14 @@
         "src/**/*": [
             "yarn lint:fix",
             "yarn test"
+        ],
+        "lib/**/*": [
+            "yarn lint:fix",
+            "yarn test"
+        ],
+        "bin/**/*": [
+            "yarn lint:fix",
+            "yarn test"
         ]
     }
 }
