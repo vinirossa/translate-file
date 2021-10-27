@@ -1,11 +1,32 @@
 import fs from 'fs'
+import path from 'path'
+
+function getAbsolutePath(file: string): string {
+  return path.resolve(__dirname, file)
+}
+
+function getFileInfo(file: string): path.ParsedPath {
+  return path.parse(getAbsolutePath(file))
+}
+
+function createFilePath(fileObj: path.FormatInputPathObject): string | boolean {
+  return path.format(fileObj)
+}
 
 function checkExistence(file: string): boolean {
   return fs.existsSync(file)
 }
 
-function readFile(file: string, encoding: BufferEncoding = 'utf8'): string {
-  return fs.readFileSync(file, encoding)
+function readFile(
+  file: string,
+  encoding: BufferEncoding = 'utf8'
+): string | boolean {
+  try {
+    return fs.readFileSync(file, encoding)
+  } catch (err) {
+    console.log(err)
+    return false
+  }
 }
 
 function writeFile(
@@ -15,21 +36,29 @@ function writeFile(
 ): boolean {
   try {
     fs.writeFileSync(file, data, encoding)
+    return true
   } catch (err) {
     console.log(err)
     return false
   }
-  return true
 }
 
 function deleteFile(file: string): boolean {
   try {
     fs.unlinkSync(file)
+    return true
   } catch (err) {
     console.log(err)
     return false
   }
-  return true
 }
 
-export { checkExistence, readFile, writeFile, deleteFile }
+export default {
+  getAbsolutePath,
+  getFileInfo,
+  createFilePath,
+  checkExistence,
+  readFile,
+  writeFile,
+  deleteFile
+}
