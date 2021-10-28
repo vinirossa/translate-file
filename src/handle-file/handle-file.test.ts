@@ -22,9 +22,13 @@ describe('Test File Path Functions', () => {
   it('should create the same file path as expected', () => {
     const filePath = handleFile.createFilePath({
       dir: 'C:\\Dev\\Web',
-      base: 'README.md'
+      base: 'README.md',
+      ext: '.md',
+      name: 'README'
     })
-    expect(filePath).toBe('C:\\Dev\\Web\\README.md')
+    if (typeof filePath === 'string') {
+      expect(filePath.replace('/', '\\')).toBe('C:\\Dev\\Web\\README.md')
+    }
   })
 })
 
