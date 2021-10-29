@@ -14,6 +14,31 @@ describe('Check for Default Rules', () => {
   })
 })
 
-// describe('Test each Format Rule', () => {
-//   it('should ', () => {})
-// })
+describe('Test each Format Rule', () => {
+  describe("Test '.md' extension rules", () => {
+    it('should return a string for the language en', () => {
+      const result = formatRules['.md']['en']('example')
+      expect(typeof result === 'string').toBe(true)
+    })
+
+    it('should return a string for the language es', () => {
+      const result = formatRules['.md']['es']('example')
+      expect(typeof result === 'string').toBe(true)
+    })
+
+    it('should return a string for the language pt', () => {
+      const result = formatRules['.md']['default']('example')
+      expect(typeof result === 'string').toBe(true)
+    })
+
+    it('should return a string for the extension default rule', () => {
+      const result = formatRules['default']('example')
+      expect(typeof result === 'string').toBe(true)
+    })
+  })
+
+  it("should return a string for extensions' default rule", () => {
+    const result = formatRules['.md']['pt']('example')
+    expect(typeof result === 'string').toBe(true)
+  })
+})
