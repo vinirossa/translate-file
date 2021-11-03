@@ -2,7 +2,7 @@ import path from 'path'
 import handleFile from './handle-file'
 
 describe('Test File Path Functions', () => {
-  it('should return true since it is an absolute path', () => {
+  it('should succeed since it is an absolute path', () => {
     const absolutePath = handleFile.getAbsolutePath('..\\..\\package.json')
     expect(path.isAbsolute(absolutePath)).toBe(true)
   })
@@ -26,9 +26,7 @@ describe('Test File Path Functions', () => {
       ext: '.md',
       name: 'README'
     })
-    if (typeof filePath === 'string') {
-      expect(filePath.replace('/', '\\')).toBe('C:\\Dev\\Web\\README.md')
-    }
+    expect(filePath.replace('/', '\\')).toBe('C:\\Dev\\Web\\README.md')
   })
 })
 
@@ -72,15 +70,15 @@ describe('Test Functions Error Handling ', () => {
   const data = 'This is a test.'
   const encoding = 'utf8'
 
-  it('should return false when trying to read a non-existent file', () => {
+  it('should fail when trying to read a non-existent file', () => {
     expect(handleFile.readFile('')).toBe(false)
   })
 
-  it('should return false when trying to create a file with invalid name', () => {
+  it('should fail when trying to create a file with invalid name', () => {
     expect(handleFile.writeFile(mockFile + ':/', data, encoding)).toBe(false)
   })
 
-  it("should return false when trying to delete a file that doesn't exist", () => {
+  it("should fail when trying to delete a file that doesn't exist", () => {
     expect(handleFile.deleteFile(mockFile)).toBe(false)
   })
 })
