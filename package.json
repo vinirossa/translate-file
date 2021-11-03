@@ -23,7 +23,7 @@
     },
     "scripts": {
         "prepare": "husky install",
-        "start": "bin/index",
+        "start": "ts-node bin/index",
         "lint": "eslint src --max-warnings=0",
         "lint:fix": "yarn lint --fix",
         "test": "jest",
