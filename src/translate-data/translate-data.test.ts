@@ -7,17 +7,16 @@ describe('General Tests with Translate Data', () => {
     if (typeof result === 'string') {
       expect(result && result.trim()).toBeTruthy()
     }
-  }, 30000)
+  }, 15000)
 
-  it('should return false if the source or target languages are empty', async () => {
-    const result = await translateData('This is a test', '', '')
-    expect(result).toBe(false)
-  }, 30000)
-
-  it("should return false if the source or target languages don't exist", async () => {
-    const result = await translateData('This is a test', 'abc', 'abc')
-    expect(result).toBe(false)
-  }, 30000)
+  it('should fail if the source or target languages are empty', async () => {
+    let result
+    try {
+      result = await translateData(' ', 'auto', 'en')
+    } catch (err) {
+      expect(result).toBe(false)
+    }
+  }, 15000)
 })
 
 describe('Translate text from English to Portuguese', () => {
@@ -27,7 +26,7 @@ describe('Translate text from English to Portuguese', () => {
     if (typeof result === 'string') {
       expect(result && result.trim()).toBeTruthy()
     }
-  }, 30000)
+  }, 15000)
 })
 
 describe('Translate text from Portuguese to English', () => {
@@ -37,5 +36,5 @@ describe('Translate text from Portuguese to English', () => {
     if (typeof result === 'string') {
       expect(result && result.trim()).toBeTruthy()
     }
-  }, 30000)
+  }, 15000)
 })

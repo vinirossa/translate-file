@@ -1,10 +1,11 @@
+import { Language } from 'src/types/language'
 import axios from 'axios'
 import { URL } from 'url'
 
 function createTranslatorURL(
-  sourceText: string,
-  sourceLang: string,
-  targetLang: string
+  text: string,
+  sourceLang: Language | 'auto',
+  targetLang: Language
 ): string {
   const translatorURL = new URL('https://example.com')
 
@@ -18,19 +19,17 @@ function createTranslatorURL(
   translatorURL.searchParams.append('tl', targetLang)
   translatorURL.searchParams.append('dt', 't')
   // translatorURL.searchParams.append('dj', '1') // For more detailed JSON response
-  translatorURL.searchParams.append('q', sourceText)
+  translatorURL.searchParams.append('q', text)
 
   return translatorURL.href
 }
 
 async function translateData(
-  sourceText: string,
-  sourceLang: string,
-  targetLang: string
+  text: string,
+  sourceLang: Language | 'auto',
+  targetLang: Language
 ): Promise<string | boolean> {
-  // confirmar que os inputs são válidos
-
-  const translatorURL = createTranslatorURL(sourceText, sourceLang, targetLang)
+  const translatorURL = createTranslatorURL(text, sourceLang, targetLang)
   let translatedText = ''
   let error = ''
 
