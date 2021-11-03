@@ -1,4 +1,6 @@
-const formatRules = {
+import { FormattingRules } from 'src/types/formatting-rules'
+
+const formattingRules: FormattingRules = {
   '.md': {
     en: (data: string): string => data,
     es: (data: string): string => data.replace(' relevant', ''),
@@ -11,4 +13,4 @@ const formatRules = {
   default: (data: string): string => data
 }
 
-export { formatRules }
+export { formattingRules }
