@@ -9,7 +9,7 @@ function getFileInfo(file: string): path.ParsedPath {
   return path.parse(getAbsolutePath(file))
 }
 
-function createFilePath(fileObj: path.FormatInputPathObject): string | boolean {
+function createFilePath(fileObj: path.FormatInputPathObject): string {
   return path.format(fileObj)
 }
 
