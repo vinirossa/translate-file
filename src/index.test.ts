@@ -33,7 +33,7 @@ describe('Test Translate File Error Handling', () => {
       '../../CHANGELOG.md',
       'auto',
       'pt',
-      'ABC*:123'
+      'ABC/\\0123'
     )
     expect(result).toBe(false)
   }, 15000)
