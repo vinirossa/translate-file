@@ -21,3 +21,20 @@ describe('Test Translate File Function', () => {
     expect(result).toBe(true)
   }, 15000)
 })
+
+describe('Test Translate File Error Handling', () => {
+  it('should fail when trying to translate a non-existent file', async () => {
+    const result = await translateFile('', 'auto', 'pt')
+    expect(result).toBe(false)
+  }, 15000)
+
+  it('should fail when an invalid output file is passed', async () => {
+    const result = await translateFile(
+      '../../CHANGELOG.md',
+      'auto',
+      'pt',
+      'ABC*:123'
+    )
+    expect(result).toBe(false)
+  }, 15000)
+})
