@@ -70,8 +70,4 @@ async function translateFile(
   return true
 }
 
-;(async () => {
-  await translateFile('../../arquivo.xml', 'pt', 'en')
-})()
-
 export { translateFile }
