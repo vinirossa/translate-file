@@ -5,7 +5,7 @@ describe('General Tests with Translate Data', () => {
     const result = await translateData('Isso é um teste', 'auto', 'en')
 
     if (typeof result === 'string') {
-      expect(result && result.trim()).toBeTruthy()
+      expect(result.trim()).toBeTruthy()
     }
   }, 15000)
 
@@ -24,7 +24,7 @@ describe('Translate text from English to Portuguese', () => {
     const result = await translateData('This is a test', 'en', 'pt')
 
     if (typeof result === 'string') {
-      expect(result && result.trim()).toBeTruthy()
+      expect(result.trim()).toBeTruthy()
     }
   }, 15000)
 })
@@ -34,7 +34,7 @@ describe('Translate text from Portuguese to English', () => {
     const result = await translateData('Isso é um teste', 'pt', 'en')
 
     if (typeof result === 'string') {
-      expect(result && result.trim()).toBeTruthy()
+      expect(result.trim()).toBeTruthy()
     }
   }, 15000)
 })
