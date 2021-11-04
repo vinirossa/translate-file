@@ -3,8 +3,8 @@ import { Command } from 'commander'
 import { translateFile } from '../src/index'
 import { version } from '../package.json'
 import languages from '../data/languages.json'
-
-//Cli Runner
+import { formattingRules } from '../src/formatting-rules/formatting-rules'
+//
 ;(async () => {
   const program = new Command()
 
@@ -18,7 +18,6 @@ import languages from '../data/languages.json'
     .option('-o, --output [file]', 'custom output file')
     .option('-l, --languages', 'list all supported languages')
     .option('-e, --extensions', 'list all handled extensions')
-
     .on('--help', () => {
       console.log('\nExamples:')
       console.log(`  $ translate-file -i CHANGELOG.md -t es`)
@@ -38,46 +37,58 @@ import languages from '../data/languages.json'
 
   // Output Google Translate supported languages
   if (options.languages) {
-    console.log('Supported languages for translation:\n')
+    console.log('Supported languages for translation (Google Translate):\n')
     console.log(
       languages
         .map(language => {
           return language.code + '\t\t' + language.name
         })
-        .join('\n')
+        .join('\n') + '\n'
     )
     return
   }
 
-  // Output the handled extensions
-  // if (options.extensions) {
-  //   console.log('Handled extensions and its recommended languages:\n')
-  //   console.log(
-  //     exts
-  //       .map(extension => {
-  //         return (
-  //           extension.extension +
-  //           '\t\t' +
-  //           extension.name +
-  //           '\t\t' +
-  //           extension.languages.join(', ')
-  //         )
-  //       })
-  //       .join('\n')
-  //   )
-  //   return
-  // }
+  // Output extensions that have formatting rules
+  if (options.extensions) {
+    const formattingRulesObj = Object.entries(formattingRules)
 
-  if (options.input === undefined) {
-    console.log(`error: required option '-i, --input [file]' not specified`)
+    console.log('Extensions that have formatting rules and its languages:\n')
+    console.log(
+      formattingRulesObj
+        .map(extension => {
+          if (extension[0] !== 'default') {
+            const formattingRuleObj = Object.entries(extension[1])
+            return (
+              extension[0] +
+              ':\n' +
+              formattingRuleObj.map(language => {
+                if (language[0] !== 'default') {
+                  return '   ' + language[0] + '\n'
+                }
+              }) +
+              '\n'
+            )
+          }
+        })
+        .join('')
+        .replace(/,/g, '')
+    )
     return
+  }
+
+  // Check for required options (Commander's broke the -l and -e commands)
+  if (options.input === undefined) {
+    process.stderr.write(
+      "error: required option '-i, --input [file]' not specified\n"
+    )
+    process.exit(1)
   }
 
   if (options.target === undefined) {
-    console.log(
-      `error: required option '-t, --target [language]' not specified`
+    process.stderr.write(
+      "error: required option '-t, --target [language]' not specified\n"
     )
-    return
+    process.exit(1)
   }
 
   await translateFile(
